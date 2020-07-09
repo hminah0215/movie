@@ -50,7 +50,11 @@ public class MovieController {
 				
 //				System.out.println(tit);
 				
-				MovieVo test = new MovieVo(tit, scores, rate ,"","","","","","");
+				//MovieVo test = new MovieVo(tit, scores, rate ,"","","","","","");
+				MovieVo test = new MovieVo();
+				test.setM_title(tit);
+				test.setM_score(scores);
+				test.setM_advance_rate(rate);
 				
 				list.add(test);
 			}
