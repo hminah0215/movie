@@ -5,13 +5,11 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.movie.demo.vo.MovieVo;
@@ -39,16 +37,18 @@ public class MovieController {
 			doc = Jsoup.connect("https://movie.naver.com/movie/running/current.nhn").get();
 			
 			Elements title = doc.select("dt.tit > a");
-			Elements score = doc.select(".info_star > .star_t1 > .num");
-			Elements advance_rate = doc.select(".lst_dsc > .info_exp > dd >.star_t1 > .num");
-//			Elements advance_rate = doc.select(".star_t1 > .num");
+			Elements score = doc.select(".star_t1 > .num");
+//			Elements advance_rate = doc.select(".lst_dsc > .info_exp > dd >.star_t1 > .num");
+			Elements advance_rate = doc.select(".star_t1 > .num");
 			
 			List<MovieVo> list = new ArrayList<MovieVo>();
 			
-			for(int i= 0; i < 10; i++) {
+			for(int i= 0; i < 20; i++) {
 				String tit = title.get(i).text();
 				String scores = score.get(i).text();
 				String rate = advance_rate.get(i).text();
+				
+//				System.out.println(tit);
 				
 				MovieVo test = new MovieVo(tit, scores, rate ,"","","","","","");
 				
