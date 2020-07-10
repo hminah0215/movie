@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.movie.demo.service.BoardService;
 import com.movie.demo.vo.BoardVo;
+import com.movie.demo.vo.Board_commentVo;
 
 @Controller
 public class BoardController {
@@ -45,6 +46,8 @@ public class BoardController {
 		model.addAttribute("detail", service.detail_board(b));
 		//조회수 증가
 		service.hit_board(b);
+		//댓글 목록
+		model.addAttribute("cm_list", service.list_board_comment(b));
 		return "/board/detail";
 	}
 	
@@ -66,8 +69,30 @@ public class BoardController {
 	//게시물 삭제
 	@RequestMapping("/board/delete_board")
 	public String delete_board(BoardVo b) {
+		service.delete_board_comment_all(b);
 		service.delete_board(b);
 		return "redirect:/board/list";
 	}
 	
+	
+	//댓글 등록
+	@RequestMapping("/board/insert_board_comment")
+	public String insert_board_comment(Board_commentVo cm) {
+		service.insert_board_comment(cm);
+		return "redirect:/board/detail?b_no="+cm.getB_no();
+	}
+	
+	//댓글 수정
+	@RequestMapping("/board/update_board_comment")
+	public String update_board_comment(Board_commentVo cm) {
+		service.update_board_comment(cm);
+		return "redirect:/board/detail?b_no="+cm.getB_no();
+	}
+	
+	//댓글 삭제
+	@RequestMapping("/board/delete_board_comment")
+	public String delete_board_comment(Board_commentVo cm) {
+		service.delete_board_comment(cm);
+		return "redirect:/board/detail?b_no="+cm.getB_no();
+	}
 }

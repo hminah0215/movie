@@ -6,11 +6,8 @@
 <!-- 자유게시판 목록 -->
 <select id="list_board" resultType="com.movie.demo.vo.BoardVo">
 	select b_no,b_Category,b_category_sub,b_title,b_content,b_date,user_id,b_report_cnt,b_hit, 
-			(select count(cm.b_no) 
-				from board b, board_comment cm 
-				where b.b_no = cm.b_no
-				group by cm.b_no) as cm_cnt
-	from board
+			(select count(cm.b_no) from board_comment cm where b.b_no = cm.b_no group by cm.b_no) as cm_cnt
+	from board b
 	where b_category = '자유게시판' order by b_no desc
 </select>
 
@@ -49,20 +46,29 @@
 	delete board where b_no = #{b_no}
 </delete>
 
+<!-- 게시물 삭제시 그 글의 댓글 삭제 -->
+<delete id="delete_board_comment_all">
+	delete board_comment where b_no = #{b_no}
+</delete>
+
 <!-- 댓글 목록 -->
 <select id="list_board_comment" resultType="com.movie.demo.vo.Board_commentVo">
 	select * from board_comment order by cm_no desc
 </select>
 
 <!-- 댓글 등록 -->
-<insert id="insert_board_commnet">
-	insert board_comment values (seq_cm_no.nextval,#{cm_content},sysdate,#{user_id},#{b_no})
+<insert id="insert_board_comment">
+	insert into board_comment values (seq_cm_no.nextval,#{cm_content},sysdate,#{user_id},#{b_no})
 </insert>
 
 <!-- 댓글 수정 -->
-
+<update id="update_board_comment">
+	update board_comment set cm_content = #{cm_content} where cm_no = #{cm_no}
+</update>
 
 <!-- 댓글 삭제 -->
-
+<delete id="delete_board_comment">
+	delete board_comment where cm_no = #{cm_no}
+</delete>
 
 </mapper>

@@ -30,9 +30,18 @@ public interface BoardDao {
 	//게시물 삭제
 	int delete_board(BoardVo b);
 	
+	//게시물 삭제시 그 글의 댓글 삭제
+	int delete_board_comment_all(BoardVo b);
+	
 	//댓글 목록
-	List<Board_commentVo> list_board_comment();
+	List<Board_commentVo> list_board_comment(BoardVo b);
 	
 	//댓글 등록
 	int insert_board_comment(Board_commentVo cm);
+	
+	//댓글 수정
+	int update_board_comment(Board_commentVo cm);
+	
+	//댓글 삭제
+	int delete_board_comment(Board_commentVo cm);
 }

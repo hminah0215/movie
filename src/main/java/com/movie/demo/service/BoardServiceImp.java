@@ -85,16 +85,46 @@ public class BoardServiceImp implements BoardService {
 
 	//댓글 목록
 	@Override
-	public List<Board_commentVo> list_board_comment() {
+	public List<Board_commentVo> list_board_comment(BoardVo b) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Board_commentVo> list = dao.list_board_comment(b);
+		return list;
 	}
 
 	//댓글 등록
 	@Override
 	public int insert_board_comment(Board_commentVo cm) {
 		// TODO Auto-generated method stub
-		return 0;
+		int re = -1;
+		re = dao.insert_board_comment(cm);
+		return re;
+	}
+
+	//게시물 삭제시 그 글의 댓글 삭제
+	@Override
+	public int delete_board_comment_all(BoardVo b) {
+		// TODO Auto-generated method stub
+		int re = -1;
+		re = dao.delete_board_comment_all(b);
+		return re;
+	}
+
+	//댓글 수정
+	@Override
+	public int update_board_comment(Board_commentVo cm) {
+		// TODO Auto-generated method stub
+		int re = -1;
+		re = dao.update_board_comment(cm);
+		return re;
+	}
+
+	//댓글 삭제
+	@Override
+	public int delete_board_comment(Board_commentVo cm) {
+		// TODO Auto-generated method stub
+		int re = -1;
+		re = dao.delete_board_comment(cm);
+		return re;
 	}
 
 }
