@@ -19,6 +19,8 @@ import com.movie.demo.vo.MovieVo;
 public class MovieController {
 	
 	// Document 연결해서 얻어온 html 전체 문서, Element Document의 html 요소, Elements element가 모인 자료형
+	// 메소드 get,post둘다 써놨는데 둘다 지우거나 필요한것만 써도 무방함.
+	
 	@ResponseBody
 	@RequestMapping(value = "crawling.do", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/plain;charset=UTF-8")
 	public String crawling() {
