@@ -8,6 +8,9 @@
 </head>
 <body>
 <h2>수정하기</h2>
+<a href="/board/notice_list">공지사항</a>
+<a href="/board/free_list">자유게시판</a>
+<a href="/board/faq_list">FAQ</a>
 <hr>
 <form action="/board/update_board">
 <input type="hidden" name="b_no" value="${detail.b_no }">

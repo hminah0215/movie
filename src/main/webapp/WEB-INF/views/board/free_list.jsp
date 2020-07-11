@@ -11,8 +11,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>자유게시판</h2>
+<h2>자유게시판 목록</h2>
+<a href="/board/notice_list">공지사항</a>
+<a href="/board/free_list">자유게시판</a>
+<a href="/board/faq_list">FAQ</a>
 <hr>
+
 <table border="1" width="60%">
 	<tr>
 		<th>게시물 번호</th>

@@ -49,7 +49,9 @@ public class MovieController {
 			Elements score = doc.select(" .star_t1 > a > .num");
 			Elements advance_rate = doc.select(".star_t1.b_star > .num");
 			Elements genre = doc.select("dd:nth-child(2) > span.link_txt");
-//			Elements runtime = doc.select("dd:nth-child(2) > #text");
+			Elements runtime = doc.select("dd:nth-child(3)");
+//			개요 멜로/로맨스, 드라마, 범죄, 가족 | 135분 | 2020.07.09 개봉 감독 증국상 출연 주동우, 이양천새
+//			이런시으로 가져와짐
 //			Elements openDate = doc.select("");
 			Elements director = doc.select("dd:nth-child(4) > span > a");
 			Elements actors = doc.select("dd:nth-child(6) > span ");
@@ -58,7 +60,7 @@ public class MovieController {
 			//div:nth-child(1) > div.lst_wrap > ul > li:nth-child(2) > div > a > img
 
 			
-			System.out.println(mainPoster +"\n");
+//			System.out.println(mainPoster +"\n");
 			
 			List<MovieVo> list = new ArrayList<MovieVo>();
 
@@ -68,14 +70,26 @@ public class MovieController {
 				m_score = score.get(i).text();
 				m_advance_rate = advance_rate.get(i).text();
 				m_genre = genre.get(i).text();
-//				m_running_time = runtime.get(i).text();
+				m_running_time = runtime.get(i).text();
+//				System.out.println(m_running_time);
+				String[] m = m_running_time.split("\\|");
+				//개요 멜로/로맨스, 드라마, 범죄, 가족 | 135분 | 2020.07.09 개봉 감독 증국상 출연 주동우, 이양천새 이거를
+				//|로 자름 스플릿으로 자르면 배열로 반환해서 배열에 넣음
+				//개요 멜로/로맨스, 드라마, 범죄, 가족
+				//135
+				//2020.07.09 개봉 감독 증국상 출연 주동우, 이양천새
+				// 이런식으로 세덩이로 나눠짐
+//				System.out.println(m[1]);
+				String[] m2 = m[2].split("개봉");
+				//위에서 나눠진 덩어리중에서 3번째(m[2])를 가져와서 개봉으로 자름
+//				System.out.println(m2[0]);
 //				m_openDate = openDate.get(i).text();
 				m_director = director.get(i).text();
 				m_actors = actors.get(i).text();
 				m_main_poster = mainPoster.get(i).attr("src");
 				
 				MovieVo test = new MovieVo(0, m_title, m_age, m_score, m_advance_rate, m_genre,
-											"", "", m_director, m_actors, m_main_poster, "상영중");
+											m[1], m2[0], m_director, m_actors, m_main_poster, "상영중");
 
 				list.add(test);
 			}

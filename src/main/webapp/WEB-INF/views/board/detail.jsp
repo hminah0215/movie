@@ -86,6 +86,9 @@ function can(){
 </script>
 <body>
 <h2>상세보기</h2>
+<a href="/board/notice_list">공지사항</a>
+<a href="/board/free_list">자유게시판</a>
+<a href="/board/faq_list">FAQ</a>
 <hr>
 
 글번호 ${detail.b_no }<br>

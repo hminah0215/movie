@@ -15,29 +15,31 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
+	//게시판 메인
+	@RequestMapping("/board/main")
+	public String main() {
+		return "/board/main";
+	}
+	
 	//자유게시판 목록
-	@RequestMapping("/board/list")
+	@RequestMapping("/board/free_list")
 	public String list_board(Model model) {
 		model.addAttribute("list_board", service.list_board());
 		
-		return "/board/list";
+		return "/board/free_list";
 	}
-	
-	//공지사항 목록
-	
-	//faq 목록
 	
 	//게시물 등록폼
 	@RequestMapping("/board/insert_board_form")
 	public String insert_board_form() {
-		return "/board/insert";
+		return "/board/free_insert";
 	}
 	
 	//게시물 등록
 	@RequestMapping("/board/insert_board")
 	public String insert_board(BoardVo b) {
 		service.insert_board(b);
-		return "redirect:/board/list";
+		return "redirect:/board/free_list";
 	}
 	
 	//게시물 상세보기
@@ -71,7 +73,7 @@ public class BoardController {
 	public String delete_board(BoardVo b) {
 		service.delete_board_comment_all(b);
 		service.delete_board(b);
-		return "redirect:/board/list";
+		return "redirect:/board/free_list";
 	}
 	
 	
@@ -94,5 +96,45 @@ public class BoardController {
 	public String delete_board_comment(Board_commentVo cm) {
 		service.delete_board_comment(cm);
 		return "redirect:/board/detail?b_no="+cm.getB_no();
+	}
+	
+	//공지사항 목록
+	@RequestMapping("/board/notice_list")
+	public String notice_list(Model model) {
+		model.addAttribute("list_notice", service.list_notice());
+		return "/board/notice_list";
+	}
+	
+	//공지사항 등록폼
+	@RequestMapping("/board/insert_notice_form")
+	public String insert_notice_form() {
+		return "/board/notice_insert";
+	}
+	
+	//공지사항 등록
+	@RequestMapping("/board/insert_notice")
+	public String insert_notice(BoardVo b) {
+		service.insert_board(b);
+		return "redirect:/board/notice_list";
+	}
+	
+	//fqa 목록
+	@RequestMapping("/board/faq_list")
+	public String faq_list(Model model) {
+		model.addAttribute("list_notice", service.list_faq());
+		return "/board/faq_list";
+	}
+	
+	//faq 등록폼
+	@RequestMapping("/board/insert_faq_form")
+	public String insert_faq_form() {
+		return "/board/faq_insert";
+	}
+	
+	//faq 등록
+	@RequestMapping("/board/insert_faq")
+	public String insert_faq(BoardVo b) {
+		service.insert_board(b);
+		return "redirect:/board/faq_list";
 	}
 }
