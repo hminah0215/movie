@@ -45,6 +45,7 @@ public class BoardController {
 	//게시물 상세보기
 	@RequestMapping("/board/detail")
 	public String detail_board(BoardVo b, Model model) {
+		System.out.println("게시물 번호"+b.getB_no());
 		model.addAttribute("detail", service.detail_board(b));
 		//조회수 증가
 		service.hit_board(b);
@@ -121,7 +122,7 @@ public class BoardController {
 	//fqa 목록
 	@RequestMapping("/board/faq_list")
 	public String faq_list(Model model) {
-		model.addAttribute("list_notice", service.list_faq());
+		model.addAttribute("list_faq", service.list_faq());
 		return "/board/faq_list";
 	}
 	
