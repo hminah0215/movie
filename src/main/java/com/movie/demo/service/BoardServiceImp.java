@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.movie.demo.dao.BoardDao;
 import com.movie.demo.vo.BoardVo;
 import com.movie.demo.vo.Board_commentVo;
+import com.movie.demo.vo.ReviewVo;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -124,6 +125,42 @@ public class BoardServiceImp implements BoardService {
 		// TODO Auto-generated method stub
 		int re = -1;
 		re = dao.delete_board_comment(cm);
+		return re;
+	}
+
+	//게시물 신고
+	@Override
+	public int report_board(BoardVo b) {
+		// TODO Auto-generated method stub
+		int re = -1;
+		re = dao.report_board(b);
+		return re;
+	}
+
+	//리뷰 신고
+	@Override
+	public int report_review(ReviewVo r) {
+		// TODO Auto-generated method stub
+		int re = -1;
+		re = dao.report_review(r);
+		return re;
+	}
+
+	//게시물 신고하면 게시물 테이블에 신고수 업데이트
+	@Override
+	public int report_board_cnt(BoardVo b) {
+		// TODO Auto-generated method stub
+		int re = -1;
+		re = dao.report_board_cnt(b);
+		return re;
+	}
+
+	//신고한 사람 확인
+	@Override
+	public Integer search_report(BoardVo b) {
+		// TODO Auto-generated method stub
+		Integer re = -1;
+		re = dao.search_report(b);
 		return re;
 	}
 

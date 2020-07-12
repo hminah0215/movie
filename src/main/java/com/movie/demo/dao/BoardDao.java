@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.movie.demo.vo.BoardVo;
 import com.movie.demo.vo.Board_commentVo;
+import com.movie.demo.vo.ReviewVo;
 
 public interface BoardDao {
 	//자유게시판 목록
@@ -44,4 +45,16 @@ public interface BoardDao {
 	
 	//댓글 삭제
 	int delete_board_comment(Board_commentVo cm);
+	
+	//게시물 신고
+	int report_board(BoardVo b);
+
+	//리뷰 신고
+	int report_review(ReviewVo r);
+	
+	//게시물 신고하면 게시물 테이블에 신고수 업데이트
+	int report_board_cnt(BoardVo b);
+	
+	//신고한 사람 확인
+	Integer search_report(BoardVo b);
 }

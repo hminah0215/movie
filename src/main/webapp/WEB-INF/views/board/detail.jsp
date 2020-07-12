@@ -91,9 +91,13 @@ function can(){
 <a href="/board/faq_list">FAQ</a>
 <hr>
 
-글번호 ${detail.b_no }<br>
+글번호 ${detail.b_no }  <c:if test="${detail.b_category eq '자유게시판' }">
+						/ 신고수 ${detail.b_report_cnt }
+						</c:if><br>
 카테고리 ${detail.b_category_sub } | 작성일 ${detail.b_date } | 조회수 ${detail.b_hit } <br>
-제목 ${detail.b_title }<br>
+제목 ${detail.b_title } <c:if test="${detail.b_category eq '자유게시판' }">
+						/ <a href="/board/report_board?b_no=${detail.b_no }" onclick="return confirm('신고하시겠습니까 ?');">신고</a>
+						</c:if><br>
 내용<br>
 <textarea>${detail.b_content }</textarea><br>
 

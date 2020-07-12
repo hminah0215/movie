@@ -138,4 +138,25 @@ public class BoardController {
 		service.insert_board(b);
 		return "redirect:/board/faq_list";
 	}
+	
+	//게시물 신고
+	@RequestMapping("/board/report_board")
+	public String report_board(BoardVo b) {
+		//로그인 되면 로그인 아이디로 수정 해야됨
+		//이미 신고한 사람은 신고 못하게 수정해야됨
+		System.out.println("//로그인 되면 로그인 아이디로 수정 해야됨");
+		b.setUser_id("test01");
+		Integer re = service.search_report(b);
+		if(re > 0) {
+			return "redirect:/board/detail?b_no="+b.getB_no();
+		}
+		else {
+			service.report_board(b);
+			System.out.println("신고글번호"+b.getB_no());
+			service.report_board_cnt(b);
+			return "redirect:/board/detail?b_no="+b.getB_no();
+		}
+	}
+	
+	//리뷰 신고
 }
