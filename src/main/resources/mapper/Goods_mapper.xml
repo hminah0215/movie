@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.demo.dao.GoodsDao">
+<!-- 상품 등록 -->
+<insert id="insert_goods">
+	insert into goods values(seq_g_no.nextval,#{g_type},#{g_name},#{g_price},#{g_qty},#{g_pic_name})
+</insert>
+
+<!-- 상품 목록 -->
+<select id="list_goods" resultType="com.movie.demo.vo.GoodsVo">
+	select * from goods order by g_no desc
+</select>
+
+<!-- 상품 수정 -->
+<update id="update_goods">
+	update goods set g_type = #{g_type}, g_name = #{g_name}, g_price = #{g_price}, g_qty = #{g_qty}, g_pic_name = #{g_pic_name} 
+	where g_no = #{g_no}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="delete_goods">
+	delete goods where g_no = #{g_no}
+</delete>
+
+</mapper>

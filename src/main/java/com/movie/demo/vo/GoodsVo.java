@@ -1,5 +1,7 @@
 package com.movie.demo.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,4 +15,7 @@ public class GoodsVo {
 	private String g_name;
 	private int g_price;
 	private int g_qty;
+	private String g_pic_name;
+	
+	private MultipartFile multipartFile;
 }
