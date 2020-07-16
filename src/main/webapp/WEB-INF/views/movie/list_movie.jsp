@@ -6,6 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	function a(m_no){
+		if(m_no == 23){
+			window.location = "/movie/theatherList?m_no="+m_no;
+			
+		}else{
+			alert("상영중인 상영관이 없습니다.")
+		}
+	}
+</script>
 </head>
 <body>
 <%-- ${listMovie } --%>
@@ -21,7 +31,7 @@
 	출연배우 : ${movie.m_actors }<br>
 	영화포스터 : <img src="${movie.m_main_poster }"><br>
 	<div>
-	<button type="button" id="reserve${movie.m_no }"><b style="color: red;">예약하기</b></button>
+	<button type="button" id="${movie.m_no }" onclick="a(${movie.m_no })"><b style="color: red;">예약하기</b></button>
 	</div>
 </c:forEach>
 </body>

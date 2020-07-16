@@ -3,4 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.movie.demo.dao.TheatherDao">
+
+	<!-- 상영관 정보 -->
+	<select id="find_theather" resultType="com.movie.demo.vo.TheatherVo">
+		select * from theather where m_no = #{m_no}
+	</select>
+
+
 </mapper>
