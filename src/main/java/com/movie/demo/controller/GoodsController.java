@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.movie.demo.service.GoodsService;
+import com.movie.demo.vo.CartVo;
 import com.movie.demo.vo.GoodsVo;
 
 @Controller
@@ -80,4 +81,16 @@ public class GoodsController {
 		model.addAttribute("list_goods", goodsService.list_goods());
 		return "/goods/list_goods";
 	}
+	
+	//장바구니 담기
+	@RequestMapping("/goods/insert_cart")
+	public String insert_cart(CartVo c) {
+		
+		
+		return "";
+	}
+	
+	//장바구니 삭제
+	
+	//장바구니 목록
 }

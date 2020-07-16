@@ -1,58 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+function a(no){
+	var sel = document.querySelector("#sel");
+	sel.value = no;
+	console.log(typeof no)
+	var data = {m_no: no};
+	console.log(data);
+	$.ajax("/movie/selecttheather",{data:data,success:function(re){
+		console.log(re);
+		$("#theather").empty();
+		$("#theather_date").empty();
+		$.each(re,function(idx,t){
+			
+			console.log(t.branch_name);
+			var p = $("<p></p>").append(t.branch_name);
+			$(p).attr('class', 'p');
+			$(p).attr('n', t.branch_no);
+			$(p).attr('m', t.m_no);
+			$("#theather").append(p);
+			});
+
+			var p_list = $(".p");
+			for(var i = 0; i < p_list.length; i++){
+				p_list[i].addEventListener("click",d);
+				}
+		}});
+
+	function d(){
+		var n = this.getAttribute("n");
+		var m = this.getAttribute("m");
+		var data = {branch_no:n, m_no:m};
+		$.ajax("/movie/selectdate",{data:data,success:function(re){
+			$("#theather_date").empty();
+			$.each(re,function(idx,d){
+				var p = $("<p></p>").append(d.screening_start);
+				$("#theather_date").append(p);
+				});
+		}});
+	}
+}
+
+</script>
 <body>
-<form action="/movie/theatherList">
-예매선택<br>
-<select name="thList" onchange="choose(this)">
-	<option>선택</option>
-	<option value="콤보">콤보</option>
-	<option value="팝콘">팝콘</option>
-	<option value="음료">음료</option>
-	<option value="스낵">스낵</option>
-</select><br>
-사진<br>
-<div id="콤보">
-<img src="/img/goods/콤보01.jpg" width="100" height="100" class="img_name" id="콤보01.jpg">
-<img src="/img/goods/콤보01.jpg" width="100" height="100" class="img_name" id="콤보02.jpg">
-<img src="/img/goods/콤보01.jpg" width="100" height="100" class="img_name" id="콤보03.jpg">
-<img src="/img/goods/콤보01.jpg" width="100" height="100" class="img_name" id="콤보04.jpg">
+선택한 영화 번호
+<c:forEach items="${theather }" var="t" begin="1" end="1">
+	<input type="text" value="${t.m_no }" readonly="readonly" id="sel"><br>
+</c:forEach>
+모든 영화 목록 번호<br>
+<c:forEach items="${allList }" var="a">
+	<input type="text" value="${a.m_title }" readonly="readonly" onclick="a(${a.m_no})"><br>
+</c:forEach><br>
+
+영화관<br>
+<div id="theather">
 </div>
-<div id="팝콘">
-<img src="/img/goods/팝콘01.jpg" width="100" height="100" class="img_name" id="팝콘01.jpg">
-<img src="/img/goods/팝콘02.jpg" width="100" height="100" class="img_name" id="팝콘02.jpg">
-<img src="/img/goods/팝콘03.jpg" width="100" height="100" class="img_name" id="팝콘03.jpg">
-<img src="/img/goods/팝콘04.jpg" width="100" height="100" class="img_name" id="팝콘04.jpg">
-<img src="/img/goods/팝콘05.jpg" width="100" height="100" class="img_name" id="팝콘05.jpg">
-<img src="/img/goods/팝콘06.jpg" width="100" height="100" class="img_name" id="팝콘06.jpg">
-<img src="/img/goods/팝콘07.jpg" width="100" height="100" class="img_name" id="팝콘07.jpg">
-<img src="/img/goods/팝콘08.jpg" width="100" height="100" class="img_name" id="팝콘08.jpg">
+
+날짜<br>
+<div id="theather_date">
 </div>
-<div id="음료">
-<img src="/img/goods/음료01.jpg" width="100" height="100" class="img_name" id="음료01.jpg">
-<img src="/img/goods/음료02.jpg" width="100" height="100" class="img_name" id="음료02.jpg">
-<img src="/img/goods/음료03.jpg" width="100" height="100" class="img_name" id="음료03.jpg">
-<img src="/img/goods/음료04.jpg" width="100" height="100" class="img_name" id="음료04.jpg">
-<img src="/img/goods/음료05.jpg" width="100" height="100" class="img_name" id="음료05.jpg">
-</div>
-<div id="스낵">
-<img src="/img/goods/스낵01.jpg" width="100" height="100" class="img_name" id="스낵01.jpg">
-<img src="/img/goods/스낵02.jpg" width="100" height="100" class="img_name" id="스낵02.jpg">
-<img src="/img/goods/스낵03.jpg" width="100" height="100" class="img_name" id="스낵03.jpg">
-<img src="/img/goods/스낵04.jpg" width="100" height="100" class="img_name" id="스낵04.jpg">
-<img src="/img/goods/스낵05.jpg" width="100" height="100" class="img_name" id="스낵05.jpg">
-</div>
-사진이름 : <input type="text" id="g_pic_name" name="g_pic_name" readonly="readonly"><br>
-상품명 : <input type="text" name="g_name"><br>
-가격 : <input type="text" name="g_price"><br>
-수량 : <input type="text" name="g_qty"><br>
-<button>등록하기</button><br>
-<a href="/goods/list_goods">등록 끝내기</a>
-</form>
+
+
+시간<br>
+
+
 </body>
 </html>

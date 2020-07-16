@@ -9,5 +9,11 @@
 		select * from theather where m_no = #{m_no}
 	</select>
 
-
+	<select id="allList" resultType="com.movie.demo.vo.MovieVo">
+		select * from movie
+	</select>
+	
+	<select id="select_date" resultType="com.movie.demo.vo.TheatherVo">
+		select * from theather where m_no = #{m_no} and branch_no = #{branch_no}
+	</select>
 </mapper>

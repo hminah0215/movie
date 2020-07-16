@@ -86,9 +86,9 @@ function item_name(){
 사진<br>
 <div id="콤보">
 <img src="/img/goods/콤보01.jpg" width="100" height="100" class="img_name" id="콤보01.jpg">
-<img src="/img/goods/콤보01.jpg" width="100" height="100" class="img_name" id="콤보02.jpg">
-<img src="/img/goods/콤보01.jpg" width="100" height="100" class="img_name" id="콤보03.jpg">
-<img src="/img/goods/콤보01.jpg" width="100" height="100" class="img_name" id="콤보04.jpg">
+<img src="/img/goods/콤보02.jpg" width="100" height="100" class="img_name" id="콤보02.jpg">
+<img src="/img/goods/콤보03.jpg" width="100" height="100" class="img_name" id="콤보03.jpg">
+<img src="/img/goods/콤보04.jpg" width="100" height="100" class="img_name" id="콤보04.jpg">
 </div>
 <div id="팝콘">
 <img src="/img/goods/팝콘01.jpg" width="100" height="100" class="img_name" id="팝콘01.jpg">

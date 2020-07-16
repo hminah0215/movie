@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	function a(m_no){
-		if(m_no == 23){
+		if(m_no == 1){
 			window.location = "/movie/theatherList?m_no="+m_no;
 			
 		}else{

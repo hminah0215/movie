@@ -21,4 +21,18 @@ public class TheatherServiceImpl implements TheatherService {
 		return list;
 	}
 
+	@Override
+	public List<TheatherVo> allList() {
+		// TODO Auto-generated method stub
+		List<TheatherVo> list = tdao.allList();
+		return list;
+	}
+
+	@Override
+	public List<TheatherVo> select_date(TheatherVo t) {
+		// TODO Auto-generated method stub
+		List<TheatherVo> list = tdao.select_date(t);
+		return list;
+	}
+
 }
