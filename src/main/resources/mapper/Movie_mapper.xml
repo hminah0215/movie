@@ -18,11 +18,11 @@
 	
 	<!-- 저장된 영화제목이 있으면 update -->
 	<update id="update_movie">
-		update movie set m_score = #{m_socre}, m_advance_rate = #{m_advance_rate} where m_title = #{m_title}
+		update movie set m_score = #{m_score}, m_advance_rate = #{m_advance_rate} where m_title = #{m_title}
 	</update>
 	
 	<!-- 영화 목록 list -->
 	<select id="list_movie" resultType="com.movie.demo.vo.MovieVo">
-		select * from movie order by m_advance_rate
+		select * from movie order by m_advance_rate desc
 	</select>
 </mapper>

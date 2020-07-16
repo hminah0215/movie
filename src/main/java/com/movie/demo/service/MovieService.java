@@ -13,7 +13,7 @@ public interface MovieService {
 	int insert_movie(MovieVo m);
 
 	// 저장된 영화제목이 있으면 update
-	int update_movie(String m_score, String m_advance_rate);
+	int update_movie(String m_score, String m_advance_rate,String m_title);
 
 	// 영화 목록 list
 	List<MovieVo> list_movie();

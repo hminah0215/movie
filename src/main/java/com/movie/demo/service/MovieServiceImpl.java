@@ -30,9 +30,9 @@ public class MovieServiceImpl implements MovieService {
 
 	// 저장된 영화제목이 있으면 update
 	@Override
-	public int update_movie(String m_score, String m_advance_rate) {
+	public int update_movie(String m_score, String m_advance_rate,String m_title) {
 		int re = -1;
-		re = mdao.update_movie(m_score, m_advance_rate);
+		re = mdao.update_movie(m_score, m_advance_rate,m_title);
 		return re;
 	}
 

@@ -12,7 +12,7 @@ public class TheatherVo {
 	private String branch_name;
 	private String branch_addr;
 	private int screen_no;
-	private String seat_no;
+	private int seats_all;
 	private String screening_date;
 	private String screening_start;
 	private int m_no;

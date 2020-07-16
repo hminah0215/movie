@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.movie.demo.service.MovieService;
@@ -25,7 +24,6 @@ public class MovieController {
 
 
 	// 메소드 get,post둘다 써놨는데 둘다 지우거나 필요한것만 써도 무방함.
-	@ResponseBody
 	@RequestMapping(value = "list", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/plain;charset=UTF-8")
 	public String crawling(Model model) {
 		Document doc = null;
@@ -89,16 +87,16 @@ public class MovieController {
 			m_actors = actors.get(i).text();
 			m_main_poster = mainPoster.get(i).attr("src");
 			
-			System.out.println(m_score);
+//			System.out.println(m_score);
 
 			// db에 저장된 영화 제목과 크롤링 한 영화제목 비교
 			if (mService.compare_title(m_title) != 0) {
-				mService.update_movie(m_score, m_advance_rate);
+				mService.update_movie(m_score, m_advance_rate+"%" ,m_title);
 			} else {
 				mVo.setM_title(m_title);
 				mVo.setM_age(m_age);
 				mVo.setM_score(m_score);
-				mVo.setM_advance_rate(m_advance_rate);
+				mVo.setM_advance_rate(m_advance_rate+"%");
 				mVo.setM_genre(m_genre);
 				mVo.setM_running_time(m_runtime[1]);
 				mVo.setM_opendate(m_opendate[0]);

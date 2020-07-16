@@ -8,18 +8,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-${listMovie }
-<%-- <c:forEach items="${listMovie }" var="movie"> --%>
-<%-- 	영화제목 : ${movie.m_title }<br> --%>
-<%-- 	나이제한 : ${movie.m_age }<br> --%>
-<%-- 	영화평점 : ${movie.m_score }<br> --%>
-<%-- 	영화예매율 : ${movie.m_advance_rate }<br> --%>
-<%-- 	영화장르 : ${movie.m_genre }<br> --%>
-<%-- 	러닝타임 : ${movie.m_running_time }<br> --%>
-<%-- 	개봉일 : ${movie.m_opendate }<br> --%>
-<%-- 	영화감독 : ${movie.m_director }<br> --%>
-<%-- 	출연배우 : ${movie.m_actors }<br> --%>
-<%-- 	영화포스터 : <img src="${movie.m_main_poster }"><br> --%>
-<%-- </c:forEach> --%>
+<%-- ${listMovie } --%>
+<c:forEach items="${listMovie }" var="movie">
+	영화제목 : ${movie.m_title }<br>
+	나이제한 : ${movie.m_age }<br>
+	영화평점 : ${movie.m_score }<br>
+	영화예매율 : ${movie.m_advance_rate }<br>
+	영화장르 : ${movie.m_genre }<br>
+	러닝타임 : ${movie.m_running_time }<br>
+	개봉일 : ${movie.m_opendate }<br>
+	영화감독 : ${movie.m_director }<br>
+	출연배우 : ${movie.m_actors }<br>
+	영화포스터 : <img src="${movie.m_main_poster }"><br>
+	<div>
+	<button type="button" id="reserve${movie.m_no }"><b style="color: red;">예약하기</b></button>
+	</div>
+</c:forEach>
 </body>
 </html>
