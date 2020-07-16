@@ -16,7 +16,7 @@ public class MovieVo {
 	private String m_advance_rate; 	// 영화 예매율
 	private String m_genre; 		// 영화 장르
 	private String m_running_time; 	// 영화 상영시간
-	private String m_openDate; 		// 영화 개봉일
+	private String m_opendate; 		// 영화 개봉일
 	private String m_director; 		// 영화 감독
 	private String m_actors; 		// 영화 출연진
 	private String m_main_poster;	// 영화 포스터

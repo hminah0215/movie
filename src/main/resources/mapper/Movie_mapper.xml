@@ -5,7 +5,24 @@
 <mapper namespace="com.movie.demo.dao.MovieDao">	
 	
 	<!-- db에 저장된 영화 제목비교 -->
-	<select id="compare_title" resultType="com.movie.demo.vo.MovieVo">
+	<select id="compare_title" resultType="java.lang.Integer">
+		select count(*) from movie where m_title = #{m_title}
+	</select>
 	
+	<!-- 저장된 영화제목이 없다면 insert -->
+	<insert id="insert_movie">
+		insert into movie values
+			(seq_m_no.nextval, #{m_title}, #{m_age}, #{m_score}, #{m_advance_rate}, 
+			#{m_genre}, #{m_running_time}, #{m_opendate}, #{m_director}, #{m_actors}, #{m_main_poster}, '상영중')
+	</insert>
+	
+	<!-- 저장된 영화제목이 있으면 update -->
+	<update id="update_movie">
+		update movie set m_score = #{m_socre}, m_advance_rate = #{m_advance_rate} where m_title = #{m_title}
+	</update>
+	
+	<!-- 영화 목록 list -->
+	<select id="list_movie" resultType="com.movie.demo.vo.MovieVo">
+		select * from movie order by m_advance_rate
 	</select>
 </mapper>
