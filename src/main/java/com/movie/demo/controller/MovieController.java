@@ -16,13 +16,14 @@ import com.google.gson.Gson;
 import com.movie.demo.vo.MovieVo;
 
 @Controller
+@RequestMapping("/movie/*")
 public class MovieController {
 	
 	// Document 연결해서 얻어온 html 전체 문서, Element Document의 html 요소, Elements element가 모인 자료형
 	// 메소드 get,post둘다 써놨는데 둘다 지우거나 필요한것만 써도 무방함.
 	
 	@ResponseBody
-	@RequestMapping(value = "crawling.do", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value = "crawling", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/plain;charset=UTF-8")
 	public String crawling() {
 		Document doc;
 		String str = "";
@@ -55,11 +56,7 @@ public class MovieController {
 //			Elements openDate = doc.select("");
 			Elements director = doc.select("dd:nth-child(4) > span > a");
 			Elements actors = doc.select("dd:nth-child(6) > span ");
-			Elements mainPoster = doc.select("div:nth-child(1) > div.lst_wrap > ul > li > div > a > img[src]");
-			
-			//div:nth-child(1) > div.lst_wrap > ul > li:nth-child(2) > div > a > img
-
-			
+			Elements mainPoster = doc.select("div:nth-child(1) > div.lst_wrap > ul > li > div > a > img[src]");		
 //			System.out.println(mainPoster +"\n");
 			
 			List<MovieVo> list = new ArrayList<MovieVo>();
@@ -88,10 +85,10 @@ public class MovieController {
 				m_actors = actors.get(i).text();
 				m_main_poster = mainPoster.get(i).attr("src");
 				
-				MovieVo test = new MovieVo(0, m_title, m_age, m_score, m_advance_rate, m_genre,
+				MovieVo m_info = new MovieVo(0, m_title, m_age, m_score, m_advance_rate, m_genre,
 											m[1], m2[0], m_director, m_actors, m_main_poster, "상영중");
 
-				list.add(test);
+				list.add(m_info);
 			}
 			Gson gson = new Gson();
 			str = gson.toJson(list);
