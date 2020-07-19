@@ -12,5 +12,7 @@ public class CartVo {
 	private String c_name;
 	private int c_qty;
 	private int g_no;
-	private int r_no;
+	private int rs_no;
+	private String user_id;
+	private int c_price;
 }

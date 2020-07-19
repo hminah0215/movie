@@ -77,20 +77,44 @@ public class GoodsController {
 	
 	//상품목록
 	@RequestMapping("/goods/list_goods")
-	public String list_goods(Model model) {
-		model.addAttribute("list_goods", goodsService.list_goods());
+	public String list_goods(Model model, GoodsVo g) {
+		//jsp에서 보낸 g_type이 없으면 자동으로 전체목록 조회
+		//jsp에서 보낸 g_type이 있으면  g_type으로 조회
+		model.addAttribute("list_goods", goodsService.list_goods(g));
 		return "/goods/list_goods";
 	}
 	
 	//장바구니 담기
 	@RequestMapping("/goods/insert_cart")
+	@ResponseBody
 	public String insert_cart(CartVo c) {
-		
-		
-		return "";
+		//c.setRs_no(0);
+		//goodsService.insert_cart(c);
+		c.setUser_id("test01");
+		int re = -1;
+		re = goodsService.insert_cart(c);
+		if(re > 0) {
+			return "장바구니에 담았습니다";
+		}else {
+			return "장바구니에 담지 못했습니다";
+		}
 	}
 	
 	//장바구니 삭제
+	@RequestMapping("/goods/delete_cart")
+	public String delete_cart(CartVo c) {
+		goodsService.delete_cart(c);
+		
+		return "/goods/list_cart";
+	}
 	
 	//장바구니 목록
+	@RequestMapping("/goods/list_cart")
+	public String list_cart(Model model, CartVo c) {
+		c.setUser_id("test01");
+		model.addAttribute("list_cart", goodsService.list_cart(c));
+		
+		return "/goods/list_cart";
+	}
+	
 }
