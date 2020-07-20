@@ -2,6 +2,12 @@ package com.movie.demo.controller;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -13,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import com.movie.demo.service.MovieService;
+import com.movie.demo.service.WishlistService;
+import com.movie.demo.vo.MemberVo;
 import com.movie.demo.vo.MovieVo;
+import com.movie.demo.vo.WishlistVo;
 
 @Controller
 @RequestMapping("/movie/*")
@@ -22,10 +31,12 @@ public class MovieController {
 	@Autowired
 	MovieService mService;
 
+	@Autowired
+	WishlistService WishlistService;
 
 	// 메소드 get,post둘다 써놨는데 둘다 지우거나 필요한것만 써도 무방함.
 	@RequestMapping(value = "list", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/plain;charset=UTF-8")
-	public String crawling(Model model) {
+	public String crawling(Model model, HttpSession session) {
 		Document doc = null;
 		String str = "";
 		String m_title; // 영화 제목
@@ -63,6 +74,9 @@ public class MovieController {
 
 		MovieVo mVo = new MovieVo();
 
+		//영수가 추가함 에러나면 이 부분 고치면 됨
+		List<Integer> chklist = new ArrayList<>();
+		
 		for (int i = 0; i < 20; i++) {
 			m_title = title.get(i).text();
 			m_age = age.get(i).text();
@@ -88,7 +102,34 @@ public class MovieController {
 			m_main_poster = mainPoster.get(i).attr("src");
 			
 //			System.out.println(m_score);
-
+			
+			//영수가 추가함 에러나면 이 부분 고치면 됨
+			
+			if(session.getAttribute("member") != null) {
+				//System.out.println("로그인 함");
+				int m_no = WishlistService.list_m_no(m_title);
+				
+				//System.out.println("영화 번호" + m_no);
+				//로그인 정보 가져옴
+				MemberVo m = (MemberVo)session.getAttribute("member");
+				WishlistVo w = new WishlistVo();
+				//영화번호 셋팅
+				w.setM_no(m_no);
+				//아이디 셋팅
+				w.setUser_id(m.getUser_id());
+				Integer chk = WishlistService.chk_wishlist(w);
+				//System.out.println(chk);
+				//model.addAttribute("wishlist", chk);
+				if(chk > 0) {
+					//System.out.println(m_no + "영화는 위시리스트에 있음");
+					chklist.add(1);
+				}else {
+					//System.out.println(m_no + "영화는 위시리스트에 없음");
+					chklist.add(0);
+				}
+			}
+			// 여기까지 
+			
 			// db에 저장된 영화 제목과 크롤링 한 영화제목 비교
 			if (mService.compare_title(m_title) != 0) {
 				mService.update_movie(m_score, m_advance_rate+"%" ,m_title);
@@ -109,7 +150,10 @@ public class MovieController {
 			}
 			
 			model.addAttribute("listMovie",mService.list_movie());
+			model.addAttribute("wishlist", chklist);
+			//System.out.println(chklist);
 		}
+		//System.out.println("컨트롤러 끝");
 		return "/movie/list_movie";
 	}
 }
