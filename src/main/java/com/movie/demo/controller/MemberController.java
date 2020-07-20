@@ -1,5 +1,8 @@
 package com.movie.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,4 +51,37 @@ public class MemberController {
 		int re = memService.checkId(user_id);
 		return re;
 	}
+	
+	// 로그인
+	@RequestMapping(value = "/login", method = { RequestMethod.GET,RequestMethod.POST })
+	public String login(HttpServletRequest request, MemberVo mv ) {
+		
+		HttpSession session = request.getSession();
+		MemberVo login = memService.login(mv.getUser_id(),mv.getPwd());
+		
+		System.out.println("------------------------");
+		System.out.println(mv.getUser_id());
+		System.out.println(mv.getPwd());
+		System.out.println("------------------------");
+		
+		if(login == null) {
+			session.setAttribute("member", null);
+			System.out.println("로그인 실패");
+		}else {
+			session.setAttribute("member", login);
+			System.out.println("로그인성공!");
+		}
+		
+		return "redirect:/";
+	}
+	
+	// 로그아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		// 모든 세션값 초기화
+		session.invalidate();
+		
+		return "redirect:/";
+	}
 }
+

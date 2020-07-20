@@ -9,4 +9,7 @@ public interface MemberDao {
 	
 	//아이디비교
 	int checkId(String user_id);
+	
+	//로그인
+	MemberVo login(String user_id, String pwd);
 }

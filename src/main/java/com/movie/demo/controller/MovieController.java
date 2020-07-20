@@ -103,9 +103,9 @@ public class MovieController {
 				mVo.setM_director(m_director);
 				mVo.setM_actors(m_actors);
 				mVo.setM_main_poster(m_main_poster);
-				System.out.println("1");
+//				System.out.println("1");
 				mService.insert_movie(mVo);
-				System.out.println("2");
+//				System.out.println("2");
 			}
 			
 			model.addAttribute("listMovie",mService.list_movie());

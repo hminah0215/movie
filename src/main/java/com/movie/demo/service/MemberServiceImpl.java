@@ -24,5 +24,12 @@ public class MemberServiceImpl implements MemberService {
 		int re = memberDao.checkId(user_id);
 		return re;
 	}
+	
+	// 로그인
+	@Override
+	public MemberVo login(String user_id, String pwd) {
+		
+		return memberDao.login(user_id,pwd);
+	}
 
 }
