@@ -15,4 +15,6 @@ public class MemberVo {
 	private String addr;
 	private String email;
 	private String role;
+	private String addr2;
+	private String addr3;
 }

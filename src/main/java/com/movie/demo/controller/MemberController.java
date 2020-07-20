@@ -40,7 +40,7 @@ public class MemberController {
 			memService.register(mv);
 		}
 
-		return "redirect:/";
+		return "/main";
 	}
 
 	// 아이디비교
