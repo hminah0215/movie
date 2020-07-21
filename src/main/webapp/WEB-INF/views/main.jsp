@@ -9,7 +9,9 @@
 </head>
 <body>
 	<a href="/movie/list">영화목록</a><br>
-	
+	<a href="/board/main">커뮤니티</a><br>
+	<a href="/goods/list_goods">상품</a><br>
+	<a href="/note/list_note">쪽지함</a><br>
 	<c:if test="${member != null }"><a href="/member/logout">로그아웃</a></c:if>
 	<c:if test="${member == null }"><a href="/member/login_form">로그인</a></c:if>
 	

@@ -83,6 +83,11 @@ function can(){
 	up_div.style = "display:none";
 }
 
+function send_note(from_id, to_id){
+	//alert("쪽지 보내는 아이디 : " + from_id + " 쪽지 받는 아이디 : " + to_id);
+	window.open("/note/insert_note_form?from_id="+from_id+"&to_id="+to_id, "쪽지 보내기", "width=800,height=500,left=0,top=0");
+}
+
 </script>
 <body>
 <h2>상세보기</h2>
@@ -95,8 +100,9 @@ function can(){
 						/ 신고수 ${detail.b_report_cnt }
 						</c:if><br>
 카테고리 ${detail.b_category_sub } | 작성일 ${detail.b_date } | 조회수 ${detail.b_hit } <br>
+작성자 ${detail.user_id } | <button onclick="send_note('${member.user_id}','${detail.user_id }')">쪽지보내기</button><br>
 제목 ${detail.b_title } <c:if test="${detail.b_category eq '자유게시판' }">
-						/ <a href="/board/report_board?b_no=${detail.b_no }" onclick="return confirm('신고하시겠습니까 ?');">신고</a>
+						/ <a href="/board/report_board?b_no=${detail.b_no }&user_id=${member.user_id}" onclick="return confirm('신고하시겠습니까 ?');">신고</a>
 						</c:if><br>
 내용<br>
 <textarea>${detail.b_content }</textarea><br>
@@ -111,7 +117,7 @@ function can(){
 <h2>댓글등록</h2>
 <form action="/board/insert_board_comment">
 <input type="hidden" name="b_no" value="${detail.b_no }">
-작성자 : <input type="text" name="user_id"><br>
+작성자 : <input type="text" name="user_id" value="${member.user_id }"><br>
 내용<br>
 <textarea rows="10" cols="10" name="cm_content"></textarea><br>
 <button onclick="return confirm('댓글을 등록하시겠습니까 ?');">댓글 등록</button>
@@ -126,7 +132,7 @@ function can(){
 <input type="hidden" value="${cm.b_no }" id="bno${cm.cm_no }">
 <input type="hidden" value="${cm.cm_no }" id="cmno${cm.cm_no }">
 
-작성자 : ${cm.user_id }<br>
+작성자 : ${cm.user_id } | <button onclick="send_note('${member.user_id}','${cm.user_id }')">쪽지보내기</button><br>
 내용 <br>
 <textarea readonly="readonly" id="text${cm.cm_no }">${cm.cm_content }</textarea><br>
 작성일 : ${cm.cm_date } <br>

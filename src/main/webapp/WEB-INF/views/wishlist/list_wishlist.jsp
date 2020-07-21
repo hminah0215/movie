@@ -25,7 +25,7 @@ function delete_wishlist(m_no, user_id){
 <a href="/movie/list">영화목록</a><br>
 <hr>
 <c:forEach items="${wishlist }" var="wishlist">
-<div style="border: 1px solid; width: 300px; height: 270px;" >
+<div style="border: 1px solid; width: 300px; height: 270px; margin-bottom: 30px;" >
 	<img src="${wishlist.m_main_poster }"><br>
 	제목 : ${wishlist.m_title } / ${wishlist.m_now } <br>
 	평점 : ${wishlist.m_score } / 예매율 : ${wishlist.m_advance_rate } <br>

@@ -7,10 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>커뮤니티 메인</h2>
-<a href="/board/notice_list">공지사항</a>
-<a href="/board/free_list">자유게시판</a>
-<a href="/board/faq_list">FAQ</a>
+<h2>쪽지함</h2>
+<a href="/note/send_note_list?user_id=${member.user_id }">보낸 쪽지</a>   <a href="/note/reseive_note_list?user_id=${member.user_id }">받은 쪽지</a>
 <hr>
 </body>
 </html>

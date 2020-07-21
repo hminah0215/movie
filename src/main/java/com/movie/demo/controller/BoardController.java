@@ -144,8 +144,8 @@ public class BoardController {
 	public String report_board(BoardVo b) {
 		//로그인 되면 로그인 아이디로 수정 해야됨
 		//이미 신고한 사람은 신고 못하게 수정해야됨
-		System.out.println("//로그인 되면 로그인 아이디로 수정 해야됨");
-		b.setUser_id("test01");
+		//System.out.println("//로그인 되면 로그인 아이디로 수정 해야됨");
+		//b.setUser_id("test01");
 		Integer re = service.search_report(b);
 		if(re > 0) {
 			return "redirect:/board/detail?b_no="+b.getB_no();

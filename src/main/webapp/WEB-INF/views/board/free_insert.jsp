@@ -18,7 +18,7 @@
 				<option value="자유">자유</option>
 				<option value="질문">질문</option>	
 			</select><br>
-	작성자 : <input type="text" name="user_id"><br>
+	작성자 : <input type="text" name="user_id" value="${member.user_id }"><br>
 	제목 : <input type="text" name="b_title"><br>
 	내용<br>
 	<textarea rows="10" cols="80" name="b_content"></textarea><br>

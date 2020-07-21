@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.demo.dao.NoteDao">
+<!-- 쪽지 보내기 -->
+<!-- from_id : 보내는 사람 / to_id : 받는 사람 -->
+<insert id="insert_note">
+	insert into note values(seq_note_no.nextval,#{from_id},#{note_title},#{note_content},'안읽음',#{user_id})
+</insert>
+
+<!-- 쪽지 확인 -->
+<update id="chk_note">
+	update note set note_chk = '읽음' where note_no = #{note_no} and user_id = #{user_id}
+</update>
+
+<!-- 보낸 쪽지 리스트 -->
+<select id="send_note_list" resultType="com.movie.demo.vo.NoteVo">
+	select * from note where from_id = #{user_id} order by note_no desc
+</select>
+
+<!-- 받은 쪽지 리스트-->
+<select id="reseive_note_list" resultType="com.movie.demo.vo.NoteVo">
+	select * from note where user_id = #{user_id} order by note_no desc
+</select>
+
+<!-- 쪽지 상세보기 -->
+<select id="detail_note" resultType="com.movie.demo.vo.NoteVo">
+	select * from note where note_no = #{note_no}
+</select>
+</mapper>
