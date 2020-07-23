@@ -1,12 +1,18 @@
 package com.movie.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.movie.demo.service.AlarmService;
 import com.movie.demo.service.NoteService;
+import com.movie.demo.vo.AlarmVo;
+import com.movie.demo.vo.MemberVo;
 import com.movie.demo.vo.NoteVo;
 
 @Controller
@@ -14,6 +20,9 @@ public class NoteController {
 	
 	@Autowired
 	NoteService noteService;
+	
+	@Autowired
+	AlarmService alarmservice;
 	
 	//쪽지 보내기폼
 	@RequestMapping("/note/insert_note_form")
@@ -31,6 +40,14 @@ public class NoteController {
 	@ResponseBody
 	public void insert_note(NoteVo n) {
 		noteService.insert_note(n);
+		//알람 등록하려고 등록한 댓글번호
+		int re = alarmservice.search_note_no();
+		AlarmVo avo = new AlarmVo();
+		avo.setA_type("쪽지등록");
+		avo.setNote_no(re);
+		avo.setUser_id(n.getUser_id());
+		System.out.println(avo);
+		alarmservice.insert_alarm(avo);
 	}
 	
 	//쪽지 확인
@@ -59,9 +76,20 @@ public class NoteController {
 	
 	//쪽지 상세보기
 	@RequestMapping("/note/detail_note")
-	public String detail_note(Model model,NoteVo n) {
+	public String detail_note(Model model,NoteVo n,HttpServletRequest request) {
 		noteService.chk_note(n);
 		model.addAttribute("detail", noteService.detail_note(n));
+		
+		HttpSession session = request.getSession();
+		if(session != null) {
+			MemberVo m = (MemberVo)session.getAttribute("member");
+			AlarmVo avo = new AlarmVo();
+			avo.setNote_no(n.getNote_no());
+			avo.setUser_id(m.getUser_id());
+			alarmservice.chk_alarm(avo);
+		}else {
+			return "/note/detail_note";
+		}
 		return "/note/detail_note";
 	}
 }

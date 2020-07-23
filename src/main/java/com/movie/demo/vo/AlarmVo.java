@@ -12,6 +12,8 @@ public class AlarmVo {
 	private String a_type;
 	private String a_check;
 	private String user_id;
-	private int number;
+	private int b_no;
 	private int note_no;
+	
+	private Integer cnt;
 }

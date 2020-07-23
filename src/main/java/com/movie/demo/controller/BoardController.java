@@ -1,19 +1,32 @@
 package com.movie.demo.controller;
 
+import java.net.http.HttpRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.movie.demo.service.AlarmService;
 import com.movie.demo.service.BoardService;
+import com.movie.demo.vo.AlarmVo;
 import com.movie.demo.vo.BoardVo;
 import com.movie.demo.vo.Board_commentVo;
+import com.movie.demo.vo.MemberVo;
+
+import ch.qos.logback.core.subst.Token.Type;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
 	BoardService service;
+	
+	@Autowired
+	AlarmService alarmservice;
 	
 	//게시판 메인
 	@RequestMapping("/board/main")
@@ -44,13 +57,31 @@ public class BoardController {
 	
 	//게시물 상세보기
 	@RequestMapping("/board/detail")
-	public String detail_board(BoardVo b, Model model) {
+	public String detail_board(BoardVo b, Model model,HttpServletRequest request) {
 		System.out.println("게시물 번호"+b.getB_no());
 		model.addAttribute("detail", service.detail_board(b));
 		//조회수 증가
 		service.hit_board(b);
 		//댓글 목록
 		model.addAttribute("cm_list", service.list_board_comment(b));
+		
+//		System.out.println(request.getSession());
+	
+		if(request.getSession() != null) {
+			//System.out.println("aaaaaaaaaaaaa");
+			HttpSession session = request.getSession();
+			MemberVo m = (MemberVo)session.getAttribute("member");
+			//로그인을 했으면
+			if(m != null) {
+				System.out.println(m);
+				AlarmVo avo = new AlarmVo();
+				avo.setB_no(b.getB_no());
+				avo.setUser_id(m.getUser_id());
+				alarmservice.chk_alarm(avo);
+			}
+			
+		}
+		
 		return "/board/detail";
 	}
 	
@@ -82,6 +113,14 @@ public class BoardController {
 	@RequestMapping("/board/insert_board_comment")
 	public String insert_board_comment(Board_commentVo cm) {
 		service.insert_board_comment(cm);
+		
+		//알람 등록하려고 댓글 등록한 글번호,글 작성자
+		AlarmVo avo = new AlarmVo();
+		avo.setA_type("댓글등록");
+		avo.setB_no(cm.getB_no());
+		avo.setUser_id(alarmservice.search_b_user_id(cm.getB_no()));
+		alarmservice.insert_alarm(avo);
+		
 		return "redirect:/board/detail?b_no="+cm.getB_no();
 	}
 	

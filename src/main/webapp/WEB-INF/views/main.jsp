@@ -19,5 +19,20 @@
 	<c:if test="${member != null}">
 			<p>${member.user_id}님 안녕하세요.</p>
 	</c:if>
+	
+	<!--알림  -->
+	<c:if test="${member != null}">
+
+			<c:if test="${comment ne null }">
+				${comment }개의 새로운 댓글이 있습니다
+				<br>
+			</c:if>
+			
+			<c:if test="${note ne null }">
+				${note }개의 새로운 쪽지가 있습니다
+				<br>
+			</c:if>
+
+	</c:if>
 </body>
 </html>

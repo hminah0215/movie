@@ -12,5 +12,5 @@ public class Board_commentVo {
 	private String cm_content;
 	private String cm_date;
 	private String user_id;
-	private String b_no;
+	private int b_no;
 }

@@ -107,10 +107,10 @@ function send_note(from_id, to_id){
 내용<br>
 <textarea>${detail.b_content }</textarea><br>
 
-<!-- 수정, 삭제 버튼은 작성자한테만 보이게 수정할 예정 -->
+<c:if test="${member.user_id eq detail.user_id }">
 <a href="/board/update_board_form?b_no=${detail.b_no }" onclick="return confirm('수정하시겠습니까 ?');">수정</a>
 <a href="/board/delete_board?b_no=${detail.b_no }" onclick="return confirm('삭제하시겠습니까 ?');">삭제</a>
-
+</c:if>
 <br><hr><br>
 
 <!-- 댓글 등록 -->
@@ -136,8 +136,10 @@ function send_note(from_id, to_id){
 내용 <br>
 <textarea readonly="readonly" id="text${cm.cm_no }">${cm.cm_content }</textarea><br>
 작성일 : ${cm.cm_date } <br>
+<c:if test="${member.user_id eq cm.user_id }">
 <div class="btn" id="${cm.cm_no }">수정</div>
 <a href="/board/delete_board_comment?cm_no=${cm.cm_no }&b_no=${cm.b_no}" onclick="return confirm('삭제하시겠습니까 ?');">삭제</a>
+</c:if>
 <br><br>
 </c:forEach>
 <hr>

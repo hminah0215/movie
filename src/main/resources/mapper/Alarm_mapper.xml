@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.demo.dao.AlarmDao">
+<!-- 알람 등록 -->
+<insert id="insert_alarm">
+	insert into alarm values (seq_a_no.nextval,#{a_type},'확인안함',#{user_id},
+	<choose>
+		<when test="b_no != 0">
+			#{b_no},'')
+		</when>
+		<otherwise>
+			'', #{note_no})
+		</otherwise>
+	</choose>
+</insert>
+
+<!-- 알람에 사용할 글 작성자 조회 -->
+<select id="search_b_user_id" resultType="String">
+	select user_id from board where b_no = #{b_no}
+</select>
+
+<!-- 알람에 사용할 쪽지 번호 조회 -->
+<select id="search_note_no" resultType="int">
+	select max(note_no) from note
+</select>
+
+<!-- 알람 확인 -->
+<update id="chk_alarm">
+	update alarm set a_check = '확인함' where user_id = #{user_id}
+	<choose>
+		<when test="b_no > 0">
+			and a_check = '확인안함' and b_no = #{b_no} and a_type = '댓글등록'
+		</when>
+		<when test="note_no > 0">
+			and a_check = '확인안함' and note_no = #{note_no} and a_type = '쪽지등록'
+		</when>
+	</choose>
+</update>
+
+
+<!-- 댓글 알람 조회 -->
+<select id="search_comment_alarm" resultType="com.movie.demo.vo.AlarmVo">
+	select a_no, a_type, a_check, user_id, b_no, note_no, (select count(b_no) from alarm where user_id = #{user_id} and a_type = '댓글등록') as cnt
+	from alarm 
+	where user_id = #{user_id} and a_type = '댓글등록' 
+</select>
+
+<!-- 신규 댓글 수 조회 -->
+<select id="cnt_comment_alarm" resultType="java.lang.Integer">
+	select count(user_id) as cnt from alarm where user_id = #{user_id} and a_type = '댓글등록' group by user_id
+</select>
+
+<!-- 쪽지 알람 조회 -->
+<select id="search_note_alarm" resultType="com.movie.demo.vo.AlarmVo">
+	select a_no, a_type, a_check, user_id, b_no, note_no, (select count(note_no) from alarm where user_id = #{user_id} and a_type = '쪽지등록') as cnt
+	from alarm 
+	where user_id = #{user_id} and a_type = '쪽지등록' 
+</select>
+
+<!-- 신규 쪽지 수 조회 -->
+<select id="cnt_note_alarm" resultType="java.lang.Integer">
+	select count(user_id) as cnt from alarm where user_id = #{user_id} and a_type = '쪽지등록' group by user_id
+</select>
+</mapper>
