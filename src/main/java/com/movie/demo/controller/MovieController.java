@@ -36,7 +36,7 @@ public class MovieController {
 
 	// 메소드 get,post둘다 써놨는데 둘다 지우거나 필요한것만 써도 무방함.
 	@RequestMapping(value = "list", method = { RequestMethod.GET,RequestMethod.POST }, produces = "text/plain;charset=UTF-8")
-	public String crawling(Model model, HttpSession session) {
+	public String crawling(Model model, HttpSession session, HttpServletRequest request) {
 		Document doc = null;
 		String str = "";
 		String m_title; // 영화 제목
@@ -104,14 +104,15 @@ public class MovieController {
 //			System.out.println(m_score);
 			
 			//영수가 추가함 에러나면 이 부분 고치면 됨
-			
-			if(session.getAttribute("member") != null) {
+			session = request.getSession();
+			MemberVo m = (MemberVo)session.getAttribute("member");
+			if(m != null) {
+			//if(session.getAttribute("member") != null) {
 				//System.out.println("로그인 함");
 				int m_no = WishlistService.list_m_no(m_title);
 				
 				//System.out.println("영화 번호" + m_no);
 				//로그인 정보 가져옴
-				MemberVo m = (MemberVo)session.getAttribute("member");
 				WishlistVo w = new WishlistVo();
 				//영화번호 셋팅
 				w.setM_no(m_no);

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.demo.dao.MypageDao">
+<!-- 작성한글 -->
+<select id="board" resultType="com.movie.demo.vo.BoardVo">
+	select b_no,b_Category,b_category_sub,b_title,b_content,b_date,user_id,b_report_cnt,b_hit, 
+		(select count(cm.b_no) from board_comment cm where b.b_no = cm.b_no group by cm.b_no) as cm_cnt
+	from board b
+	where b_category = '자유게시판' and user_id = #{user_id} order by b_no desc
+</select>
+
+</mapper>

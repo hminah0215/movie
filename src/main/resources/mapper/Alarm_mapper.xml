@@ -49,7 +49,7 @@
 
 <!-- 신규 댓글 수 조회 -->
 <select id="cnt_comment_alarm" resultType="java.lang.Integer">
-	select count(user_id) as cnt from alarm where user_id = #{user_id} and a_type = '댓글등록' group by user_id
+	select count(user_id) as cnt from alarm where user_id = #{user_id} and a_type = '댓글등록' and a_check = '확인안함' group by user_id
 </select>
 
 <!-- 쪽지 알람 조회 -->
@@ -61,6 +61,6 @@
 
 <!-- 신규 쪽지 수 조회 -->
 <select id="cnt_note_alarm" resultType="java.lang.Integer">
-	select count(user_id) as cnt from alarm where user_id = #{user_id} and a_type = '쪽지등록' group by user_id
+	select count(user_id) as cnt from alarm where user_id = #{user_id} and a_type = '쪽지등록' and a_check = '확인안함' group by user_id
 </select>
 </mapper>

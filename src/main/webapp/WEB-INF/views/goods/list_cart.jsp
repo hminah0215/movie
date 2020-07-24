@@ -10,6 +10,7 @@
 <body>
 <h2>장바구니 목록</h2>
 <hr>
+<a href="/mypage/main">마이페이지 메인</a>   <a href="/mypage/update_form">내 정보 수정</a>  <a href="/mypage/board">작성한 글</a>  <a href="/wishlist/list_wishlist?user_id=${member.user_id }">위시리스트</a>  <a href="/goods/list_cart?user_id=${member.user_id }">장바구니</a>  <a href="/mypage/pay">결제내역</a>  <a href="/note/list_note?user_id=${member.user_id }">쪽지함</a><br>
 <a href="/goods/list_goods">상품목록</a><br><br>
 <table border="1" width="60%">
 <tr>

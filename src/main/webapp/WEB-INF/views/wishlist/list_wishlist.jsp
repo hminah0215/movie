@@ -21,7 +21,8 @@ function delete_wishlist(m_no, user_id){
 }
 </script>
 <body>
-<h2>위시리스트 목록</h2>
+<h2>위시리스트</h2>
+<a href="/mypage/main">마이페이지 메인</a>   <a href="/mypage/update_form">내 정보 수정</a>  <a href="/mypage/board">작성한 글</a>  <a href="/wishlist/list_wishlist?user_id=${member.user_id }">위시리스트</a>  <a href="/goods/list_cart?user_id=${member.user_id }">장바구니</a>  <a href="/mypage/pay">결제내역</a>  <a href="/note/list_note?user_id=${member.user_id }">쪽지함</a><br>
 <a href="/movie/list">영화목록</a><br>
 <hr>
 <c:forEach items="${wishlist }" var="wishlist">

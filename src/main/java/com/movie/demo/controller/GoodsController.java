@@ -2,6 +2,9 @@ package com.movie.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -12,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.movie.demo.service.GoodsService;
+import com.movie.demo.vo.AlarmVo;
 import com.movie.demo.vo.CartVo;
 import com.movie.demo.vo.GoodsVo;
+import com.movie.demo.vo.MemberVo;
 
 @Controller
 public class GoodsController {
@@ -87,10 +92,14 @@ public class GoodsController {
 	//장바구니 담기
 	@RequestMapping("/goods/insert_cart")
 	@ResponseBody
-	public String insert_cart(CartVo c) {
+	public String insert_cart(CartVo c,HttpSession session, HttpServletRequest request) {
 		//c.setRs_no(0);
 		//goodsService.insert_cart(c);
-		c.setUser_id("test01");
+		session = request.getSession();
+		MemberVo m = (MemberVo)session.getAttribute("member");
+		if(m != null) {
+			c.setUser_id(m.getUser_id());
+		}
 		int re = -1;
 		re = goodsService.insert_cart(c);
 		if(re > 0) {
@@ -110,8 +119,13 @@ public class GoodsController {
 	
 	//장바구니 목록
 	@RequestMapping("/goods/list_cart")
-	public String list_cart(Model model, CartVo c) {
-		c.setUser_id("test01");
+	public String list_cart(Model model, CartVo c, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
+		MemberVo m = (MemberVo)session.getAttribute("member");
+		if(m != null) {
+			c.setUser_id(m.getUser_id());
+		}
+		
 		model.addAttribute("list_cart", goodsService.list_cart(c));
 		
 		return "/goods/list_cart";

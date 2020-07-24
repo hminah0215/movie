@@ -41,6 +41,7 @@ public class WishlistController {
 	@RequestMapping("/wishlist/list_wishlist")
 	public String list_wishlist(Model model, WishlistVo w) {
 		model.addAttribute("wishlist", wishlistService.list_wishlist(w));
+		//System.out.println("위시리스트 목록" + w);
 		return "/wishlist/list_wishlist";
 	}
 }
