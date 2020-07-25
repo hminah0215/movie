@@ -15,4 +15,6 @@ public class CartVo {
 	private int rs_no;
 	private String user_id;
 	private int c_price;
+	
+	private String g_pic_name;
 }

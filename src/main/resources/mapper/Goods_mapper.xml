@@ -43,7 +43,9 @@
 
 <!-- 장바구니 목록 -->
 <select id="list_cart" resultType="com.movie.demo.vo.CartVo">
-	select * from cart where user_id = #{user_id} order by c_no desc
+	select c_no, c_name, c_qty, g_no, rs_no, user_id, c_price, (select g.g_pic_name from goods g where c.g_no = g.g_no) as g_pic_name
+	from cart c
+	where user_id = #{user_id} order by c_no desc
 </select>
 
 </mapper>
